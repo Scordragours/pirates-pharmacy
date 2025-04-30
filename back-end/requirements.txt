@@ -1,0 +1,9 @@
+openai
+autogen
+python-dotenv
+azure-search-documents
+azure-core
+flask
+streamlit
+uvicorn
+gunicorn
