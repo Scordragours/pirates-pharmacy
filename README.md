@@ -21,6 +21,8 @@ All results are enriched by a **Writer Agent** based on **GPT-4o**, which reform
 
 ### 🔗 Core Components
 
+
+
 - **4 Specialized Agents:**
 - `Martindale Agent` (Azure search + GPT4o1): Queries the Martindale database to extract international drug information and references.
 - `DailyMed Agent` (Azure search + GPT4o1): Retrieves official drug labels and descriptions from the DailyMed database.
@@ -41,6 +43,29 @@ All results are enriched by a **Writer Agent** based on **GPT-4o**, which reform
 
 ---
 
+## 📦 Data Ingestion & Indexing Pipeline
+
+To enable unified, high-quality retrieval across heterogeneous data formats, we follow a structured ingestion and indexing strategy:
+
+### 🔍 Data Collection (Local)
+
+- **Martindale**: Extracted from local PDF files.
+- **DailyMed**: Parsed from structured XML files.
+- **FDA Drug Database**: Ingested from JSON files.
+
+### ☁️ Storage in Azure Blob Storage
+
+All collected files are uploaded to **Azure Blob Storage**, providing centralized access for the indexing pipeline.
+
+### 🧾 Indexing via Custom Scripts
+
+Each source is indexed using a dedicated script:
+
+- `indexer_Martindale.py`: Extracts key data from Martindale PDFs and indexes it into Azure AI Search.
+- `indexer_DailyMed.py`: Parses XML files from DailyMed and formats them for indexing.
+- `indexer_FDA.py`: Extracts fields such as `product_ndc`, `reactionmeddrapt`,`brand_name`,`labeler_name`,`descriptions`, `inactive_ingredient`, `purpose`  and `active_ingredients` from FDA JSON files.
+
+---
 ## 💡 Why Is This Innovative?
 
 - **Improving Access to Medical Knowledge**: Makes complex drug-related information from trusted medical databases accessible and understandable to non-specialists.
